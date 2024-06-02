@@ -1,8 +1,30 @@
-- hosts: master
+- hosts: masters
   become: yes
+  vars_prompt:
+    - name: podcidr
+      prompt: pod network cidr (e.g 1.2.3.4/16)
+      private: false
+
   tasks:
-    - name: Install Kubectl on master
-      apt:
-        name: kubectl=1.30.*
-        state: present
-        force: yes
+    - name: Initilize the Kubernetes Cluster
+      command: kubeadm init --pod-network-cidr={{ podcidr }}
+      register: kubeadm_output
+
+    - name: Create .kube directory
+      file:
+        path: /home/{{ ansible_user }}/.kube
+        state: directory
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Copy kubeconfig to user directory
+      command: cp /etc/kubernetes/admin.conf /home/{{ ansible_user }}/.kube/config
+
+    - name: Change ownership of kubeconfig
+      file:
+        path: /home/{{ ansible_user }}/.kube/config
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+
+    - name: Install Calico network plugin
+      command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml

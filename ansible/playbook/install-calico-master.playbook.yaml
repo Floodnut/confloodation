@@ -1,0 +1,6 @@
+- hosts: masters
+  become: yes
+
+  tasks:
+    - name: Install Calico network plugin
+      command: kubectl apply -f https://docs.projectcalico.org/manifests/calico.yaml
