@@ -1,1 +1,3 @@
 # confloodation
+
+Configurations for server
