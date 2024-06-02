@@ -1,5 +1,5 @@
 - name: Kubernetes Dependencies
-  hosts: workers
+  hosts: all
   gather_facts: yes
   become: yes
   tasks:
