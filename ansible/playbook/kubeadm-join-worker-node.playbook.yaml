@@ -1,0 +1,18 @@
+- hosts: workers
+  become: yes
+  vars_prompt:
+    - name: master_node_addr
+      prompt: <master-node-ip>:<master-node-port>
+      private: false
+
+    - name: token
+      prompt: '"kubeadm token create" or "kubeadm token list"'
+      private: true
+
+    - name: ca_hash
+      prompt: 'sha256:12341f1wqefwqff'
+      private: true
+
+  tasks:
+    - name: Join worker node
+      command: kubeadm join {{ master_node_addr }} --token {{ token }} --discovery-token-ca-cert-hash {{ ca_hash }}
