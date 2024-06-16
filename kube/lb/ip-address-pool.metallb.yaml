@@ -1,0 +1,17 @@
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: ip-pool-exeternal-100-110
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.0.100-192.168.0.110
+---
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: network-l2-lb-01
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - ip-pool-exeternal-100-110
