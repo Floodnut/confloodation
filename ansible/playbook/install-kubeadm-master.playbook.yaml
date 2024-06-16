@@ -1,13 +1,16 @@
 - hosts: masters
   become: yes
   vars_prompt:
+    - name: ipserver-advertisement-addr
+      prompt: ip server advertisement address (e.g 2.5.4.6)
+      private: false 
     - name: podcidr
       prompt: pod network cidr (e.g 1.2.3.4/16)
       private: false
 
   tasks:
     - name: Initilize the Kubernetes Cluster
-      command: kubeadm init --pod-network-cidr={{ podcidr }}
+      command: kubeadm init --apiserver-advertise-address={{ ipserver-advertisement-addr }}  --pod-network-cidr={{ podcidr }}
       register: kubeadm_output
 
     - name: Create .kube directory
