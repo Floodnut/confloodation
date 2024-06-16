@@ -1,0 +1,18 @@
+- name: Kubernetes Dependencies
+  hosts: workers
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: Stop Kubelet
+      command: systemctl stop kubelet
+
+    - name: Kubeadm reset
+      command: kubeadm reset
+
+    - name: Remove configs
+      command: |
+        rm -rf /etc/kubernetes
+        rm -rf /etc/cni/net.d
+
+    - name: Remove kubelet and kubeadm
+      command: apt remove kubelet kubeadm
