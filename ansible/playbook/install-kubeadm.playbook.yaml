@@ -1,15 +1,19 @@
-- hosts: all
+- hosts: workers
   become: yes
   tasks:
+    - name: Updates
+      apt:
+        update_cache: yes
+
     - name: Install Kubelet
       apt:
-        name: kubelet=1.30.*
+        name: kubelet=1.28.*
         state: present
         update_cache: true
 
     - name: Install Kubeadm
       apt:
-        name: kubeadm=1.30.*
+        name: kubeadm=1.28.*
         state: present
 
     - name: Enable the Kubelet service
