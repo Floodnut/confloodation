@@ -1,0 +1,6 @@
+# private config
+*.ansible-inventory.yaml
+*.ansible-inventory.ini
+
+# private dir
+private/
