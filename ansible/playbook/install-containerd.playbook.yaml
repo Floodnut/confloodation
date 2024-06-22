@@ -1,11 +1,14 @@
 - name: Kubernetes Dependencies
-  hosts: all
+  hosts: workers_x86s
   gather_facts: yes
   become: yes
   tasks:
     - name: Updates
       apt:
         update_cache: yes
+
+    - name: Swapoff
+      command: swapoff -a
 
     - name: Create an empty file for the containerd module
       copy:
@@ -58,14 +61,14 @@
 
     - name: Add Kubernetes apt-key
       get_url:
-        url: https://pkgs.k8s.io/core:/stable:/v1.30/deb/Release.key
+        url: https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key
         dest: /etc/apt/keyrings/kubernetes-apt-keyring.asc
         mode: "0644"
         force: true
 
     - name: Add Kubernetes APT repository
       apt_repository:
-        repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v1.30/deb/ /"
+        repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.asc] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /"
         state: present
         update_cache: yes
 
