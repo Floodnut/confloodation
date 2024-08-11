@@ -2,6 +2,7 @@
 *.ansible-inventory.yaml
 *.ansible-inventory.ini
 *.private.playbook.yaml
+*.private.yaml
 
 # private dir
 private/

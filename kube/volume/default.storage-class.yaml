@@ -1,0 +1,25 @@
+kind: StorageClass
+apiVersion: storage.k8s.io/v1
+metadata:
+  name: default-storage-class
+  namespace: internal-system 
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+provisioner: kubernetes.io/no-provisioner
+volumeBindingMode: WaitForFirstConsumer
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: default-pv
+  namespace: internal-system
+spec:
+  storageClassName: default-storage-class
+  capacity:
+    storage: 30Gi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: /usr/local/pv/default
