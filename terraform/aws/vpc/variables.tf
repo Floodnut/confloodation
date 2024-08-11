@@ -29,10 +29,12 @@ variable "vpc_config" {
     ipv6_cidr_block_network_border_group = optional(string),
 
     # subnets
-    subnet = list(object({
+    subnets = list(object({
       name = string,
       cidr_block = string,
-      suffix = optional(string),
+      az = string,
+      suffix = string,
+
       assign_ipv6_address_on_creation = optional(bool, false),
       enable_dns_support = optional(bool, true),
       enable_resource_name_dns_aaaa_record_on_launch = optional(bool, true),
@@ -42,12 +44,14 @@ variable "vpc_config" {
       ipv6_native = optional(bool, false),
       map_public_ip_on_launch = optional(bool, false),
       private_dns_hostname_type_on_launch = optional(string),
+  
       tags = optional(map(string), {}),
       tags_per_az = optional(map(map(string), {})),
     })),
 
     # route table
-    route_table = list(object({
+    route_tables = list(object({
+      suffix = string,
       manage_default_route_table = optional(bool, true),
       default_route_table_name = optional(string),
       default_route_table_propagating_vgws = optional(list(string), []),
