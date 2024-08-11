@@ -6,3 +6,10 @@
 
 # private dir
 private/
+
+# not yet
+terraform/oci/**
+
+# terraform
+**/.terraform**
+**/terraform.**
