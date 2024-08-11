@@ -1,20 +1,3 @@
-data "aws_availability_zones" "available" {
-  state = "available"
-}
-
-module "cloud9" {
-  source = "../../aws/cloud9"
-  for_each = { for cloud9 in local.config.cloud9 : cloud9.name => cloud9 }
-  cloud9 = each.value
-} 
-
-module "vpc" {
-  source  = "../../aws/vpc"
-
-  for_each = { for vpc in local.config.vpc : vpc.name => vpc }
-  vpc_config = each.value
-}
-
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 20.0"

@@ -1,6 +1,36 @@
+default_region: ap-southeast-1
+
 cloud9:
   - name: demo
     instance_type: t2.micro
     image_id: amazonlinux-2023-x86_64
     region: ap-southeast-1
     subnet_id: <subnet_id>
+
+vpc:
+  - name: eks
+    region: ap-northeast-2
+    cidr: "10.0.0.0/16"
+    subnet:
+      - name: public-a
+        cidr: "10.0.0.0/24"
+        tags:
+          - key: "kubernetes.io/role/elb"
+            value: "1"
+
+      - name: public-b
+        cidr: "10.0.0.16/24"
+
+      - name: private-a
+        cidr: "10.0.0.32/24"
+        tags:
+          - key: "karpenter.sh/discovery"
+            value: cluster-demo
+
+      - name: private-b
+        cidr: "10.0.0.48/24"
+        tags:
+          - key: "karpenter.sh/discovery"
+            value: cluster-demo
+eks:
+  - name: cluster-demo

@@ -4,7 +4,7 @@
 
 provider "aws" {
   # profile = "development"
-  region  = "ap-southeast-1"
+  region  = local.default_region
 }
 
 terraform {
@@ -24,14 +24,44 @@ terraform {
 
 locals {
   config = yamldecode(file("./config.yaml"))
+  default_region = local.config.default_region
+
   cloud9 = flatten([
     for cloud9 in local.config.cloud9 : [
       merge(cloud9, {
-        region = "ap-southeast-1"
+        region = local.default_region
+      })
+    ]
+  ])
+  vpc = flatten([
+    for vpc in local.config.vpc : [
+      merge(vpc, {
+        region = local.default_region
+      })
+    ]
+  ])
+  lb = flatten([
+    for lb in local.config.lb : [
+      merge(lb, {
+        region = local.default_region
+      })
+    ]
+  ])
+  eks = flatten([
+    for eks in local.config.eks : [
+      merge(eks, {
+        region = local.default_region
       })
     ]
   ])
 }
+
+locals {
+  private_subnets = [for k, v in local.azs : cidrsubnet(local.config.vpc.vpc_cidr, 3, k + 3)]
+  public_subnets  = [for k, v in local.azs : cidrsubnet(local.config.vpc.vpc_cidr, 3, k)]
+  azs             = slice(data.aws_availability_zones.available.names, 0, 3)
+}
+
 
 output "name" {
   value = local.config
