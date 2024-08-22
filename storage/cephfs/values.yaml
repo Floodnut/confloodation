@@ -1,0 +1,7 @@
+---
+csiConfig:
+- clusterID: 'homelab-cluster'
+  monitors:  # fill in the monitor hosts
+    - ''
+    - ''
+    - ''
