@@ -27,3 +27,19 @@ serviceaccount/etcd-operator-sa created
 role.rbac.authorization.k8s.io/etcd-operator-role created
 rolebinding.rbac.authorization.k8s.io/etcd-operator-rolebinding created
 ```
+
+4. operator deployment
+```sh
+k apply -f ./etcd-operator.deployment.yaml
+
+deployment.apps/etcd-operator created
+```
+
+5. check deployment
+```sh
+k get pods
+NAME                                                     READY   STATUS            RESTARTS        AGE
+
+# ...
+etcd-operator-7449d6b768-zxvqn                           0/2     PodInitializing   0               76s
+```
