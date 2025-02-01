@@ -1,14 +1,20 @@
 #!/bin/bash
-set -e  # 에러 발생 시 종료
+set -e
 
 REPO_DIR="$(pwd)"
 CHARTS_DIR="${REPO_DIR}/helm/charts"
 SOURCES_FILE="${REPO_DIR}/helm/sources.txt"
 
-mkdir -p "$CHARTS_DIR"
+
+i=1
+while [ "$i" -le 3 ]; do
+    echo "$i"
+    ((i++))
+done
 
 while read -r repo; do
     echo Sync $repo...
+    
 
     [[ -z "$repo" || "$repo" == \#* ]] && continue
     repo_name=$(basename "$repo" .git)
