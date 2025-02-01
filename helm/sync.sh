@@ -8,6 +8,11 @@ SOURCES_FILE="${REPO_DIR}/helm/sources.txt"
 echo Chart dir is $CHARTS_DIR
 echo Source file is $SOURCES_FILE
 
+if [[ ! -f "$SOURCES_FILE" ]]; then
+    echo "Error: $SOURCES_FILE not found!"
+    exit 1
+fi
+
 while read -r repo; do
     echo Sync $repo...
 
