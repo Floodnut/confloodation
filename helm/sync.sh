@@ -2,8 +2,8 @@
 set -e
 
 REPO_DIR="$(pwd)"
-CHARTS_DIR="/helm/charts"
-SOURCES_FILE="/helm/sources.txt"
+CHARTS_DIR="helm/charts"
+SOURCES_FILE="helm/sources.txt"
 
 while read -r repo; do
     echo Sync $repo...
