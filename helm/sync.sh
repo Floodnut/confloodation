@@ -23,6 +23,7 @@ while read -r repo; do
     else
         echo "Cloning $repo_name..."
         git clone "$repo" "$repo_path"
+        rm -rf "$repo/.git/"
 
         cd "$repo_path"
         default_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
@@ -30,6 +31,7 @@ while read -r repo; do
 
         cd "$REPO_DIR"
     fi
+
 done < "$SOURCES_FILE"
 
 cd "$REPO_DIR"
