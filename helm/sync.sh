@@ -34,7 +34,7 @@ done < "$SOURCES_FILE"
 
 cd "$REPO_DIR"
 if [[ -n $(git status --porcelain) ]]; then
-    git add charts/
+    git add helm/charts/
     git commit -m "Daily sync: $(date +'%Y-%m-%d')"
     git push origin main
 else
