@@ -6,11 +6,10 @@ CHARTS_DIR="${REPO_DIR}/helm/charts"
 SOURCES_FILE="${REPO_DIR}/helm/sources.txt"
 
 
-i=1
-while [ "$i" -le 3 ]; do
-    echo "$i"
-    ((i++))
-done
+while read -r repo; do
+    echo "Processing: $repo"
+done < sources.txt
+
 
 while read -r repo; do
     echo Sync $repo...
