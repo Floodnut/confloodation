@@ -5,7 +5,8 @@ REPO_DIR="$(pwd)"
 CHARTS_DIR="${REPO_DIR}/helm/charts"
 SOURCES_FILE="${REPO_DIR}/helm/sources.txt"
 
-git pull origin main
+git pull origin main || true
+git pull origin master || true
 
 mkdir -p "$CHARTS_DIR"
 
