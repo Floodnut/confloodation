@@ -1,0 +1,16 @@
+github:
+  description: "Apache CouchDB Helm Chart"
+  labels:
+    - couchdb
+    - helm
+    - kubernetes
+  protected_branches:
+    main:
+      required_status_checks:
+        strict: true
+      required_linear_history: true
+    gh-pages: {}
+  ghp_branch: gh-pages
+  ghp_path: ~
+  dependabot_alerts:  false
+  dependabot_updates: true
