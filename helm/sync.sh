@@ -23,8 +23,8 @@ while read -r repo; do
     else
         echo "Cloning $repo_name..."
         git clone "$repo" "$repo_path"
-        rm -rf "./$repo/.git/"
-        rm -rf "./$repo/.github/"
+        rm -rf "./$repo_path/.git"
+        rm -rf "./$repo_path/.github"
 
 
         cd "$repo_path"
