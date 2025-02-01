@@ -35,10 +35,6 @@ while read -r repo; do
     fi
 done < "$SOURCES_FILE"
 
-if [[ -n $(git status --porcelain) ]]; then
-    git add helm/charts/
-    git commit -m "Daily sync: $(date +'%Y-%m-%d')"
-    git push origin main
-else
-    echo "No changes to commit."
-fi
+git add helm/charts/
+git commit -m "Daily sync: $(date +'%Y-%m-%d')"
+git push origin main
