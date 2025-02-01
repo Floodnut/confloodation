@@ -19,6 +19,9 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
+      - name: Show target sources
+        run: cat ./helm/sources.txt
+
       - name: Run Sync Script
         run: |
           ./helm/sync.sh
