@@ -5,15 +5,11 @@ REPO_DIR="$(pwd)"
 CHARTS_DIR="${REPO_DIR}/helm/charts"
 SOURCES_FILE="${REPO_DIR}/helm/sources.txt"
 
-
-while read -r repo; do
-    echo "Processing: $repo"
-done < sources.txt
-
+echo Chart dir is $CHARTS_DIR
+echo Source file is $SOURCES_FILE
 
 while read -r repo; do
     echo Sync $repo...
-    
 
     [[ -z "$repo" || "$repo" == \#* ]] && continue
     repo_name=$(basename "$repo" .git)
@@ -40,6 +36,11 @@ while read -r repo; do
     fi
 done < "$SOURCES_FILE"
 
-git add helm/charts/
-git commit -m "Daily sync: $(date +'%Y-%m-%d')"
-git push origin main
+cd "$REPO_DIR"
+if [[ -n $(git status --porcelain) ]]; then
+    git add charts/
+    git commit -m "Daily sync: $(date +'%Y-%m-%d')"
+    git push origin main
+else
+    echo "No changes to commit."
+fi
