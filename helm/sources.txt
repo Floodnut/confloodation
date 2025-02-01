@@ -1,1 +1,2 @@
 https://github.com/apache/couchdb-helm.git
+https://github.com/hashicorp/vault-helm.git  

@@ -23,7 +23,9 @@ while read -r repo; do
     else
         echo "Cloning $repo_name..."
         git clone "$repo" "$repo_path"
-        rm -rf "$repo/.git/"
+        rm -rf "./$repo/.git/"
+        rm -rf "./$repo/.github/"
+
 
         cd "$repo_path"
         default_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
