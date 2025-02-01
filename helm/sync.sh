@@ -5,14 +5,6 @@ REPO_DIR="$(pwd)"
 CHARTS_DIR="${REPO_DIR}/helm/charts"
 SOURCES_FILE="${REPO_DIR}/helm/sources.txt"
 
-echo Chart dir is $CHARTS_DIR
-echo Source file is $SOURCES_FILE
-
-if [[ ! -f "$SOURCES_FILE" ]]; then
-    echo "Error: $SOURCES_FILE not found!"
-    exit 1
-fi
-
 while read -r repo; do
     echo Sync $repo...
 
@@ -32,7 +24,6 @@ while read -r repo; do
         echo "Cloning $repo_name..."
         git clone --depth=1 "$repo" "$repo_path"
 
-        # 기본 브랜치 확인 후 Checkout
         cd "$repo_path"
         default_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
         git checkout "$default_branch" || true
