@@ -22,7 +22,7 @@ while read -r repo; do
         cd "$REPO_DIR"
     else
         echo "Cloning $repo_name..."
-        git clone --depth=1 "$repo" "$repo_path"
+        git clone "$repo" "$repo_path"
 
         cd "$repo_path"
         default_branch=$(git remote show origin | awk '/HEAD branch/ {print $NF}')
